@@ -59,8 +59,19 @@ public class FrontingServlet extends HttpServlet
 		fullURL = fullURL.substring(request.getContextPath().length() + 1);
 		System.out.println(fullURL);
 		
+		if(request.getHeader("forward_addr") != null)
+		{
+			fullURL = request.getHeader("forward_addr");
+		}
+		
 		//Map<String, String> parameters = new HashMap();
 		//fullURL = "http://www.google.com/";
+		
+		System.out.println(fullURL.substring(0, 4));
+		if(!fullURL.substring(0, 4).equals("http"))
+		{
+			return;
+		}
 		
 		URL theURL = new URL(fullURL);
 		URLConnection theConnection = (URLConnection)theURL.openConnection();
